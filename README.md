@@ -4,7 +4,7 @@
 
 In Leaflet, the following geometry types are commonly used within GeoJSON objects:
 
-1. Point
+1.
 2. MultiPoint
 3. LineString
 4. MultiLineString
