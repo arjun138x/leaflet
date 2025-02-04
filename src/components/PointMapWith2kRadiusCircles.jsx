@@ -62,26 +62,28 @@ const PointMapWith2kRadiusCircles = () => {
 
     // Add Zoom Event Listener
     newMap.on("zoomend", () => {
-      const zoom = newMap.getZoom();
+      const zoom = newMap.getZoom(); // Get the current zoom level of the map
 
-      //  Remove previous circles when zooming out
+      // 🔹 Remove all previously added circles when zooming out
       circlesRef.current.forEach((c) => {
-        if (newMap.hasLayer(c)) newMap.removeLayer(c);
+        if (newMap.hasLayer(c)) newMap.removeLayer(c); // Check if the circle exists before removing it
       });
-      circlesRef.current = []; // Clear reference array
+      circlesRef.current = []; // Clear the reference array to avoid keeping references to removed circles
 
+      //  If the zoom level is 15 or greater, add new 2km radius circles around each point
       if (zoom >= 15) {
-        //  Add 2km radius circle for each point when zoomed in
         geojsonData.features.forEach((feature) => {
-          const [lng, lat] = feature.geometry.coordinates; // Get coordinates
+          const [lng, lat] = feature.geometry.coordinates; // Extract coordinates from GeoJSON
+
+          //  Create a new circle with a 2km radius centered at the point
           const circle = L.circle([lat, lng], {
             radius: 2000, // 2km in meters
-            color: "red",
-            fillColor: "lightblue",
-            fillOpacity: 0.3,
-          }).addTo(newMap);
+            color: "red", // Circle border color
+            fillColor: "lightblue", // Fill color inside the circle
+            fillOpacity: 0.3, // Set transparency for better visibility
+          }).addTo(newMap); // Add the circle to the map
 
-          circlesRef.current.push(circle); // Store reference
+          circlesRef.current.push(circle); //  Store the reference of the circle to remove it later
         });
       }
     });
