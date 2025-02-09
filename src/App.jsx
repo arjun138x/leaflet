@@ -6,6 +6,7 @@ import LineStringMap from "./components/individual-code/LineStringMap";
 import MultiLineStringMap from "./components/individual-code/MultiLineStringMap";
 import MultiPointMap from "./components/individual-code/MultiPointMap";
 import MultiPolygonMap from "./components/individual-code/MultiPolygonMap";
+import PointZoomIntoHexagon from "./components/individual-code/PointZoomIntoHexagon";
 import PointMapWith2kRadiusCircles from "./components/PointMapWith2kRadiusCircles";
 
 function App() {
@@ -13,9 +14,11 @@ function App() {
     <>
       {/* ----- MAP WITH ALL GEOJSON TYPES ------ */}
       {/* <GeoJSONMap /> */}
-
       {/* ------ TOWER WITH NETWORK COVERAGE AREA  ------*/}
-      <PointMapWith2kRadiusCircles />
+      {/* <PointMapWith2kRadiusCircles /> */}
+
+      {/* ------ TOWER WITH NETWORK COVERAGE GEOJSON AS A MultiPolygon   ------*/}
+      <PointZoomIntoHexagon />
 
       {/* ---------- INDIVIDUAL CODE --------- */}
       {/* <MultiPolygonMap /> */}
