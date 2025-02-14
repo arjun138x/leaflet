@@ -68,7 +68,7 @@ const PointZoomIntoHexagon = () => {
     const pointLayer = L.geoJSON(geojsonData, {
       filter: (feature) => feature.geometry.type === "Point",
       pointToLayer: (feature, latLng) => {
-        return L.circleMarker(latLng, {
+        const point = L.circleMarker(latLng, {
           radius: 6,
           fillColor: feature.properties.category === "Type 1" ? "blue" : "red", // Different color per category
           color: "white",
@@ -76,7 +76,18 @@ const PointZoomIntoHexagon = () => {
           opacity: 1,
           fillOpacity: 0.8,
         });
+        const label = L.marker(latLng, {
+          icon: L.divIcon({
+            className: "label",
+            html: `<div style="color: red; text-align:center; ">
+                <strong>${feature.properties.category}</strong>
+              </div>`,
+            iconSize: [50, -40], // [width, height]
+          }),
+        });
+        return L.featureGroup([point, label]).addTo(newMap);
       },
+
       onEachFeature: (feature, layer) => {
         layer.bindPopup(
           `<b>${feature.properties.name}</b><br/>
